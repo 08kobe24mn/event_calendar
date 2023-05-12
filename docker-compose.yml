@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   nginx:
-    container_name: react-blog-nginx
+    container_name: event_calendar_nginx
     build: ./docker/nginx
     ports:
       - "8000:80"
@@ -10,7 +10,7 @@ services:
       - ./:/usr/share/nginx/html
 
   app:
-    container_name: react-blog-app
+    container_name: event_calendar_app
     build: ./docker/php
     volumes:
       - ./docker/php/php.ini:/usr/local/php/php.ini
@@ -19,21 +19,21 @@ services:
       - "5173:5173"
 
   db:
-    container_name: react-blog-db
+    container_name: event_calendar_db
     build: ./docker/mysql
     ports:
-      - 3307:3306
+      - 3306:3306
     volumes:
       - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
-      - react-blog-db-volumes:/var/lib/mysql
+      - event_calendar_db_volumes:/var/lib/mysql
     environment:
-      - MYSQL_DATABASE=react_blog_db
+      - MYSQL_DATABASE=event_calendar_db
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_USER=user
       - MYSQL_PASSWORD=pass
 
   phpmyadmin:
-    container_name: react-blog-phpmyadmin
+    container_name: event_calendar_phpmyadmin
     image: phpmyadmin/phpmyadmin
     ports:
       - 8001:80
@@ -43,4 +43,4 @@ services:
       - PMA_ROOT_PASSWORD=root
 
 volumes:
-  react-blog-db-volumes:
+  event_calendar_db_volumes:
