@@ -1,7 +1,9 @@
-export default function Index() {
+import { Header } from "@/Components/Header";
+
+export default function Index(props) {
+    const { user } = props;
+
     return (
-        <>
-            <div>Menu Page</div>
-        </>
+        <Header user={user}></Header>
     )
 }
