@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventCalendar\CalendarController;
+use App\Http\Controllers\EventCalendar\EventController;
 use App\Http\Controllers\EventCalendar\SelectFunctionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,11 @@ Route::get('/index', [SelectFunctionController::class, 'index'])->name('index');
 // カレンダー
 Route::controller(CalendarController::class)->group(function () {
     Route::get('/calendar', 'index')->name('calendar.index');
+});
+
+// イベント
+Route::controller(EventController::class)->group(function () {
+    Route::get('/event', 'index')->name('event.index');
 });
 
 require __DIR__.'/auth.php';
