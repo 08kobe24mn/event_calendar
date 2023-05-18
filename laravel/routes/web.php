@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventCalendar\CalendarController;
 use App\Http\Controllers\EventCalendar\EventController;
-use App\Http\Controllers\EventCalendar\SelectFunctionController;
+use App\Http\Controllers\EventCalendar\MenuController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,7 +19,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -38,8 +38,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// イベントカレンダー
-Route::get('/index', [SelectFunctionController::class, 'index'])->name('index');
+// 機能選択
+Route::controller(MenuController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+});
 
 // カレンダー
 Route::controller(CalendarController::class)->group(function () {
