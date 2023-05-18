@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EventCalendar\CalendarController;
 use App\Http\Controllers\EventCalendar\SelectFunctionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -38,5 +39,10 @@ Route::middleware('auth')->group(function () {
 
 // イベントカレンダー
 Route::get('/index', [SelectFunctionController::class, 'index'])->name('index');
+
+// カレンダー
+Route::controller(CalendarController::class)->group(function () {
+    Route::get('/calendar', 'index')->name('calendar.index');
+});
 
 require __DIR__.'/auth.php';
